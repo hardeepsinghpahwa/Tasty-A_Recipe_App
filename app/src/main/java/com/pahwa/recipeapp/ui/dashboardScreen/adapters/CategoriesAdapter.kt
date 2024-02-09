@@ -22,13 +22,10 @@ class CategoriesAdapter @Inject constructor() :
         return CategoriesViewHolder(layout)
     }
 
-    fun updateList(){
+    fun updateList(data:ArrayList<Categories>){
+        items.clear()
         items.add(Categories(strCategory = "All"))
-        items.add(Categories(strCategory = "First"))
-        items.add(Categories(strCategory = "Second"))
-        items.add(Categories(strCategory = "Third"))
-        items.add(Categories(strCategory = "Fourth"))
-        items.add(Categories(strCategory = "Fifth"))
+        items.addAll(data)
         notifyDataSetChanged()
     }
 

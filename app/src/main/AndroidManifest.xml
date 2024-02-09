@@ -11,8 +11,11 @@
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.RecipeApp">
+        android:theme="@style/Theme.RecipeApp"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.searchScreen.SearchScreen"
+            android:exported="false" />
         <activity
             android:name=".ui.dashboardScreen.DashboardScreen"
             android:exported="false" />

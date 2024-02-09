@@ -36,7 +36,7 @@
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="60dp"
                     android:gravity="center"
                     android:text="Classic Greek\nSalad"
                     android:textColor="#484848"

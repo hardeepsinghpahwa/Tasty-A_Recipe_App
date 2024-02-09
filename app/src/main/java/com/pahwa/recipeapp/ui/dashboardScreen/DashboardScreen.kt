@@ -23,7 +23,7 @@ class DashboardScreen : AppCompatActivity() {
 
     private lateinit var binding: ActivityDashboardScreenBinding
 
-    lateinit var component: ActivityComponent
+    private lateinit var component: ActivityComponent
 
     @Inject
     lateinit var categoriesAdapter: CategoriesAdapter
@@ -32,12 +32,12 @@ class DashboardScreen : AppCompatActivity() {
     lateinit var showcaseAdapter: ShowcaseAdapter
 
     @Inject
-    lateinit var newrecipesAdapter: NewrecipesAdapter
+    lateinit var newRecipesAdapter: NewrecipesAdapter
 
     @Inject
     lateinit var dashboardViewModelFactory: DashboardViewModelFactory
 
-    private val viewmodel: DashboardViewModel by viewModels { dashboardViewModelFactory }
+    private val viewModel: DashboardViewModel by viewModels { dashboardViewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,24 +54,34 @@ class DashboardScreen : AppCompatActivity() {
 
         binding.newRecipes.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        binding.newRecipes.adapter = newrecipesAdapter
+        binding.newRecipes.adapter = newRecipesAdapter
 
-        categoriesAdapter.updateList()
-        newrecipesAdapter.updateList()
+        newRecipesAdapter.updateList()
         Log.d("COUNT", categoriesAdapter.itemCount.toString())
 
-        viewmodel.getRepos().observe(this){
+        viewModel.getRecipes().observe(this) {
             showcaseAdapter.updateList(it)
         }
 
+        viewModel.getCategories().observe(this) {
+            categoriesAdapter.updateList(it)
+        }
+
+        binding.retry.setOnClickListener {
+            initData()
+        }
 
     }
 
+    private fun initData() {
+        viewModel.getCategorieData()
+        viewModel.getRecipeData()
+    }
 
 
     override fun onResume() {
         super.onResume()
-        viewmodel.getCategories()
+        initData()
     }
 
     private fun initDependencyInjection() {
@@ -86,7 +96,7 @@ class DashboardScreen : AppCompatActivity() {
 
     private fun initDataBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard_screen)
-        binding.setVariable(BR.viewModel,viewmodel)
+        binding.setVariable(BR.viewModel, viewModel)
         binding.executePendingBindings()
     }
 }

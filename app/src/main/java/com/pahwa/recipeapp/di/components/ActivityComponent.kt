@@ -5,6 +5,7 @@ import com.pahwa.recipeapp.di.modules.ActivityModule
 import com.pahwa.recipeapp.ui.dashboardScreen.DashboardScreen
 import com.pahwa.recipeapp.ui.introScreen.IntroScreen
 import com.pahwa.recipeapp.ui.loginScreen.LoginScreen
+import com.pahwa.recipeapp.ui.searchScreen.SearchScreen
 import dagger.Component
 
 @ActivityScope
@@ -17,5 +18,6 @@ interface ActivityComponent {
     fun injectActivity(loginScreen: IntroScreen)
     fun injectActivity(loginScreen: LoginScreen)
     fun injectActivity(dashboardScreen: DashboardScreen)
+    fun injectActivity(searchScreen: SearchScreen)
 
 }
