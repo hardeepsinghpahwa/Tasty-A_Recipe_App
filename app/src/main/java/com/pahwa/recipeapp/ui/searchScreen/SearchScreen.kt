@@ -1,5 +1,6 @@
 package com.pahwa.recipeapp.ui.searchScreen
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView.OnEditorActionListener
@@ -19,10 +20,11 @@ import com.pahwa.recipeapp.di.components.ActivityComponent
 import com.pahwa.recipeapp.di.components.DaggerActivityComponent
 import com.pahwa.recipeapp.di.modules.ActivityModule
 import com.pahwa.recipeapp.model.response.MealsItem
+import com.pahwa.recipeapp.ui.recipeDetails.RecipeDetailsScreen
 import javax.inject.Inject
 
 
-class SearchScreen : AppCompatActivity() {
+class SearchScreen : AppCompatActivity(), SearchItemClickListener {
 
     lateinit var binding: ActivitySearchScreenBinding
 
@@ -49,8 +51,12 @@ class SearchScreen : AppCompatActivity() {
 
         initDependencyInjection()
 
+        binding.search.requestFocus()
+
         binding.searchResults.adapter = searchAdapter
         binding.searchResults.layoutManager = GridLayoutManager(this, 2)
+
+        searchAdapter.setOnClickListener(this)
 
         viewModel.getSearchResults().observe(this) {
             searchAdapter.updateList(it)
@@ -108,7 +114,7 @@ class SearchScreen : AppCompatActivity() {
                             temp.add(i)
                         }
                     } else if (filteredCats.isNotEmpty() && filteredAreas.isEmpty()) {
-                        if (filteredCats.contains(i.strCategory )) {
+                        if (filteredCats.contains(i.strCategory)) {
                             temp.add(i)
                         }
                     } else if ((filteredCats.isNotEmpty() && filteredAreas.isNotEmpty()) && (filteredCats.contains(
@@ -142,5 +148,11 @@ class SearchScreen : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search_screen)
         binding.setVariable(BR.viewModel, viewModel)
         binding.executePendingBindings()
+    }
+
+    override fun onSearchItemClick(mealId: String) {
+        val intent = (Intent(this, RecipeDetailsScreen::class.java))
+        intent.putExtra("id", mealId)
+        startActivity(intent)
     }
 }

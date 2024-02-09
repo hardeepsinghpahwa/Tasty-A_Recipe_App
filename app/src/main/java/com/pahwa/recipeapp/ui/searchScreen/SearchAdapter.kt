@@ -15,9 +15,14 @@ class SearchAdapter @Inject constructor() :
     private var items = ArrayList<MealsItem>()
     private var selectedCategory = 0
 
+    lateinit var listener: SearchItemClickListener
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealsItemViewHolder {
         var layout = ItemSearchBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MealsItemViewHolder(layout)
+    }
+
+    fun setOnClickListener(listener: SearchItemClickListener) {
+        this.listener = listener
     }
 
     fun updateList(data: ArrayList<MealsItem>) {
@@ -42,9 +47,17 @@ class SearchAdapter @Inject constructor() :
 
                 binding.title.text = this.strMeal
                 binding.subTitle.text = this.strArea + " " + this.strCategory
+
+                binding.root.setOnClickListener {
+                    listener.onSearchItemClick(this.idMeal)
+                }
             }
         }
     }
+}
+
+interface SearchItemClickListener {
+    fun onSearchItemClick(mealId: String)
 }
 
 

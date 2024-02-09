@@ -17,12 +17,18 @@ class CategoriesAdapter @Inject constructor() :
     private var items = ArrayList<Categories>()
     private var selectedCategory = 0
 
+    lateinit var listener: CategoryClickListener
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesViewHolder {
         var layout = ItemCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return CategoriesViewHolder(layout)
     }
 
-    fun updateList(data:ArrayList<Categories>){
+    fun setClickListener(onCategoryClickListener: CategoryClickListener) {
+        listener = onCategoryClickListener
+    }
+
+    fun updateList(data: ArrayList<Categories>) {
         items.clear()
         items.add(Categories(strCategory = "All"))
         items.addAll(data)
@@ -51,23 +57,45 @@ class CategoriesAdapter @Inject constructor() :
                         binding.name.context,
                         R.drawable.selected_category
                     )
-                    binding.name.setTextColor(ContextCompat.getColor(binding.name.context,R.color.white))
-                    binding.name.typeface= ResourcesCompat.getFont(binding.name.context, R.font.poppins_bold)
+                    binding.name.setTextColor(
+                        ContextCompat.getColor(
+                            binding.name.context,
+                            R.color.white
+                        )
+                    )
+                    binding.name.typeface =
+                        ResourcesCompat.getFont(binding.name.context, R.font.poppins_bold)
                 } else {
                     binding.name.background = ContextCompat.getDrawable(
                         binding.name.context,
                         R.drawable.unselected_category
                     )
-                    binding.name.typeface= ResourcesCompat.getFont(binding.name.context, R.font.poppins)
-                    binding.name.setTextColor(ContextCompat.getColor(binding.name.context,R.color.tealGreen))
+                    binding.name.typeface =
+                        ResourcesCompat.getFont(binding.name.context, R.font.poppins)
+                    binding.name.setTextColor(
+                        ContextCompat.getColor(
+                            binding.name.context,
+                            R.color.tealGreen
+                        )
+                    )
                 }
             }
 
             binding.name.setOnClickListener {
                 selectCategory(position)
+                if(position==0){
+                    listener.onCategoryClick("Vegetarian")
+                }else {
+                    listener.onCategoryClick(items[position].strCategory.toString())
+                }
             }
         }
     }
 }
+
+interface CategoryClickListener {
+    fun onCategoryClick(categoryName: String)
+}
+
 
 

@@ -74,7 +74,7 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout"
+                android:id="@+id/searchField"
                 style="@style/SearchTextInputLayoutStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
                 android:background="@color/white"
-                app:boxStrokeColor="@color/teal_200"
+                app:boxStrokeColor="@color/tealGreen"
                 app:hintEnabled="false"
                 app:layout_constraintEnd_toStartOf="@+id/filter"
                 app:layout_constraintStart_toStartOf="parent"
@@ -91,7 +91,11 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_search"
+                    android:id="@+id/search"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:textCursorDrawable="@null"
+                    android:drawableStart="@drawable/ic_search"
                     android:drawablePadding="10dp"
                     android:hint="Search Recipe"
                     android:textColorHint="@color/hintColor" />
@@ -105,10 +109,11 @@
                 android:layout_marginEnd="5dp"
                 app:cardBackgroundColor="#129575"
                 app:cardCornerRadius="10dp"
+                android:visibility="gone"
                 app:cardUseCompatPadding="true"
-                app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
+                app:layout_constraintBottom_toBottomOf="@+id/searchField"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textInputLayout">
+                app:layout_constraintTop_toTopOf="@+id/searchField">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -124,8 +129,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="@+id/textInputLayout"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+                app:layout_constraintStart_toStartOf="@+id/searchField"
+                app:layout_constraintTop_toBottomOf="@+id/searchField"
                 tools:layout_height="50dp" />
 
             <androidx.recyclerview.widget.RecyclerView

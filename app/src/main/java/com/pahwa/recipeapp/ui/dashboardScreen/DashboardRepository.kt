@@ -7,14 +7,14 @@ import io.reactivex.Observable
 import javax.inject.Inject
 
 class DashboardRepository @Inject constructor(
-    val apiService: ApiService
+    private val apiService: ApiService
 ) {
 
     fun getCategories(): Observable<CategoriesResponse> {
         return apiService.getRecipeCategories("http://www.themealdb.com/api/json/v1/1/categories.php")
     }
 
-    fun getRecipes(): Observable<RecipeResponse> {
-        return apiService.getRecipes("http://www.themealdb.com/api/json/v1/1/filter.php?a=Indian")
+    fun getRecipes(categoryName: String): Observable<RecipeResponse> {
+        return apiService.getRecipes("http://www.themealdb.com/api/json/v1/1/filter.php?c=${categoryName}")
     }
 }

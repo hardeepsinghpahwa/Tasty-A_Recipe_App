@@ -23,4 +23,9 @@ interface ApiService {
     fun searchRecipes(
         @Url url: String
     ): Observable<SearchResponse>
+
+    @GET
+    fun getRecipeDetails(
+        @Url url: String
+    ): Observable<SearchResponse>
 }

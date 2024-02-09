@@ -49,7 +49,7 @@ class IntroScreen : AppCompatActivity() {
         component.injectActivity(this)
     }
 
-    fun checkIfSignedIn() {
+    private fun checkIfSignedIn() {
         val user = firebaseAuth.currentUser
         if (user != null) {
             startActivity(Intent(this, DashboardScreen::class.java))
@@ -57,7 +57,7 @@ class IntroScreen : AppCompatActivity() {
     }
 
 
-    fun initDataBinding() {
+    private fun initDataBinding() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_intro_screen)
     }
 }

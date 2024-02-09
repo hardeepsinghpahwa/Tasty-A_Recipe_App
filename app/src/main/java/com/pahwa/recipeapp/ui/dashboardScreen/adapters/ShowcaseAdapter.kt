@@ -14,44 +14,19 @@ class ShowcaseAdapter @Inject constructor() :
 
     private var items = ArrayList<MealData>()
 
+    private lateinit var listener: ShowCaseOnClickListener
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealsItemViewHolder {
         var layout = ItemShowcaseBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MealsItemViewHolder(layout)
     }
 
-    fun updateList(data:ArrayList<MealData>) {
-      /*  items.add(
-            MealsItem(
-                strCategory = "Beef and something else",
-                strCategoryThumb = "https://www.themealdb.com/images/category/beef.png"
-            )
-        )
-        items.add(
-            MealsItem(
-                strCategory = "Chicken",
-                strCategoryThumb = "https://www.themealdb.com/images/category/chicken.png"
-            )
-        )
-        items.add(
-            MealsItem(
-                strCategory = "Desert",
-                strCategoryThumb = "https://www.themealdb.com/images/category/dessert.png"
-            )
-        )
-        items.add(
-            MealsItem(
-                strCategory = "Lamb",
-                strCategoryThumb = "https://www.themealdb.com/images/category/lamb.png"
-            )
-        )
-        items.add(
-            MealsItem(
-                strCategory = "Pasta",
-                strCategoryThumb = "https://www.themealdb.com/images/category/pasta.png"
-            )
-        )
-        items.add(MealsItem(strCategory = "Fifth"))*/
+    fun setClickListener(listener: ShowCaseOnClickListener) {
+        this.listener = listener
+    }
 
+    fun updateList(data: ArrayList<MealData>) {
+        items.clear()
         items.addAll(data)
         notifyDataSetChanged()
     }
@@ -70,12 +45,19 @@ class ShowcaseAdapter @Inject constructor() :
                 Glide.with(binding.root.context)
                     .load(this.strMealThumb)
                     .into(binding.thumbnail)
+
+                binding.root.setOnClickListener{
+                    listener.onShowCaseClick(this.idMeal)
+                }
             }
 
-            binding.root.setOnClickListener {
-            }
-        }
+
     }
+}
+}
+
+interface ShowCaseOnClickListener {
+    fun onShowCaseClick(mealId:String)
 }
 
 

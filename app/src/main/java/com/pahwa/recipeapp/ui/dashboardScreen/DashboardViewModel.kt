@@ -35,7 +35,7 @@ class DashboardViewModel(
     }
 
 
-    fun getCategorieData() {
+    fun getCategoriesData() {
         loading.set(true)
         retry.set(false)
         compositeDisposable.add(
@@ -66,11 +66,11 @@ class DashboardViewModel(
         )
     }
 
-    fun getRecipeData() {
+    fun getRecipeData(categoryName:String) {
         loading.set(true)
         retry.set(false)
         compositeDisposable.add(
-            repository.getRecipes()
+            repository.getRecipes(categoryName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableObserver<RecipeResponse>() {
