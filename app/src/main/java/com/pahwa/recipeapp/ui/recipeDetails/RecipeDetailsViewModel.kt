@@ -30,9 +30,16 @@ class RecipeDetailsViewModel(
     val instructions = ObservableField("")
     val ingredients = ObservableField("")
 
+    val ingredientsImgs = MutableLiveData<ArrayList<String>>()
+
 
     fun getRecipes(): LiveData<ArrayList<MealsItem>> {
         return recipes
+    }
+
+
+    fun getIngredientImages(): LiveData<ArrayList<String>> {
+        return ingredientsImgs
     }
 
     fun getImage(): LiveData<String> {
@@ -61,6 +68,8 @@ class RecipeDetailsViewModel(
 
 
                             var ing = ""
+                            var list = arrayListOf<String>()
+
                             for (i in 0..20) {
 
 
@@ -84,11 +93,13 @@ class RecipeDetailsViewModel(
                                     measField.get(recipe) as String? ?: break
 
 
+                                list.add(ingObject)
                                 ing += "•  $measObject $ingObject\n"
 
                             }
 
                             ingredients.set(ing)
+                            ingredientsImgs.postValue(list)
 
                         } else {
                             retry.set(true)
