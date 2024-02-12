@@ -1,41 +1,38 @@
 {
   "project_info": {
-    "project_number": "298451198047",
-    "project_id": "recipeapp-b17bc",
-    "storage_bucket": "recipeapp-b17bc.appspot.com"
+    "project_number": "606144302985",
+    "firebase_url": "https://tastyrecipeapp-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "tastyrecipeapp",
+    "storage_bucket": "tastyrecipeapp.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:298451198047:android:e631f7e96fa898433dfbea",
+        "mobilesdk_app_id": "1:606144302985:android:deed120255b17db76f5b58",
         "android_client_info": {
-          "package_name": "com.pahwa.recipeapp"
+          "package_name": "com.tasty.recipeapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "298451198047-ces71bko2aobhmk9gs5301iv0bbh2213.apps.googleusercontent.com",
+          "client_id": "606144302985-35tf6asp53c4h4o7pqdirk5kd1q53ils.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.pahwa.recipeapp",
+            "package_name": "com.tasty.recipeapp",
             "certificate_hash": "33218a8e07b87337531b3621d954ff66338fb0a3"
           }
-        },
-        {
-          "client_id": "298451198047-t7evq257vpq8jcm7ki74rl12shn5mlj4.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAHohsxMg7RKL0TA35A-vN94vwGBReWwBo"
+          "current_key": "AIzaSyCGWPfVXIM2fE2dw7UX9CgmtMhKgGn3zHQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "298451198047-t7evq257vpq8jcm7ki74rl12shn5mlj4.apps.googleusercontent.com",
+              "client_id": "606144302985-ber74vgkmr4ap58iglr2unq98jidij2k.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

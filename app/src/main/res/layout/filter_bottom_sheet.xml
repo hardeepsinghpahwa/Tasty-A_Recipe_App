@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -60,25 +60,53 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
-        <TextView
-            android:id="@+id/filter"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/button"
-            android:drawablePadding="10dp"
-            android:includeFontPadding="false"
-            android:paddingBottom="10dp"
-            android:paddingHorizontal="40dp"
-            android:paddingVertical="10dp"
-            android:text="Filter Results"
-            android:textColor="@color/white"
-            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/areaFilters" />
+            app:layout_constraintTop_toBottomOf="@+id/areaFilters">
+
+            <TextView
+                android:id="@+id/clear_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/button"
+                android:drawablePadding="10dp"
+                android:includeFontPadding="false"
+                android:paddingHorizontal="30dp"
+                android:layout_marginEnd="20dp"
+                android:paddingVertical="10dp"
+                android:paddingBottom="10dp"
+                android:text="Clear"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/button"
+                android:drawablePadding="10dp"
+                android:includeFontPadding="false"
+                android:layout_marginStart="20dp"
+                android:paddingHorizontal="30dp"
+                android:paddingVertical="10dp"
+                android:paddingBottom="10dp"
+                android:text="Filter Results"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/areaFilters" />
 
 
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

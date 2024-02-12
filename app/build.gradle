@@ -7,10 +7,10 @@ plugins {
 
 android {
     compileSdk 34
-    namespace 'com.pahwa.recipeapp'
+    namespace 'com.tasty.recipeapp'
 
     defaultConfig {
-        applicationId "com.pahwa.recipeapp"
+        applicationId "com.tasty.recipeapp"
         minSdk 23
         targetSdk 34
         versionCode 1

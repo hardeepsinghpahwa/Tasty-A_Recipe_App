@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.pahwa.recipeapp.ui.dashboardScreen.DashboardViewModel" />
+            type="com.tasty.recipeapp.ui.dashboardScreen.DashboardViewModel" />
 
         <import type="android.view.View" />
 
@@ -64,14 +64,26 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@color/transparent"
+                app:cardCornerRadius="10dp"
+                android:layout_margin="3dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/profile_pic"
                     android:layout_gravity="center"
                     android:src="@drawable/avatar" />
 
             </androidx.cardview.widget.CardView>
 
+            </androidx.cardview.widget.CardView>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/searchField"
