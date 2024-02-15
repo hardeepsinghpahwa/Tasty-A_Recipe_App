@@ -1,16 +1,15 @@
 package com.tasty.recipeapp.ui.recipeDetails
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.tasty.recipeapp.R
-import com.tasty.recipeapp.databinding.ActivityRecipeDetailsScreenBinding
 import com.tasty.recipeapp.BR
 import com.tasty.recipeapp.MainApplication
+import com.tasty.recipeapp.R
+import com.tasty.recipeapp.databinding.ActivityRecipeDetailsScreenBinding
 import com.tasty.recipeapp.di.components.ActivityComponent
 import com.tasty.recipeapp.di.components.DaggerActivityComponent
 import com.tasty.recipeapp.di.modules.ActivityModule
@@ -38,7 +37,8 @@ class RecipeDetailsScreen : AppCompatActivity(), ThumbnailClickListener {
 
         initDependencyInjection()
 
-        viewModel.getRecipeDetails(intent.getStringExtra("id").toString())
+        showData()
+
 
         viewModel.getRecipes().observe(this) {
 
@@ -51,16 +51,28 @@ class RecipeDetailsScreen : AppCompatActivity(), ThumbnailClickListener {
                 .into(binding.thumbnail)
         }
 
-        binding.ingredientImages.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
+        binding.ingredientImages.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.ingredientImages.adapter = thumbnailAdapter
         thumbnailAdapter.setClickListener(this)
         viewModel.getIngredientImages().observe(this) {
-            Log.d("IMAGESSS",it.toString())
             thumbnailAdapter.updateList(it)
+        }
+
+        binding.retry.setOnClickListener {
+            showData()
         }
 
     }
 
+    private fun showData() {
+        val fromFirebase = intent.getStringExtra("firebase") != null
+        if (fromFirebase) {
+            viewModel.getRecipeDetailsFromFirebase(intent.getStringExtra("id").toString())
+        } else {
+            viewModel.getRecipeDetails(intent.getStringExtra("id").toString())
+        }
+    }
 
     private fun initDependencyInjection() {
         component = DaggerActivityComponent.builder()
@@ -78,7 +90,8 @@ class RecipeDetailsScreen : AppCompatActivity(), ThumbnailClickListener {
         binding.executePendingBindings()
     }
 
-    override fun onThumbnailClick(image: String,name: String) {
-        FullScreenImageDialog.newInstance(image,name).show(supportFragmentManager,"FullScreenImageDialog")
+    override fun onThumbnailClick(image: String, name: String) {
+        FullScreenImageDialog.newInstance(image, name)
+            .show(supportFragmentManager, "FullScreenImageDialog")
     }
 }

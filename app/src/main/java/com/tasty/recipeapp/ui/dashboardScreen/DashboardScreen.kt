@@ -2,22 +2,22 @@ package com.tasty.recipeapp.ui.dashboardScreen
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
-import com.tasty.recipeapp.R
-import com.tasty.recipeapp.databinding.ActivityDashboardScreenBinding
 import com.tasty.recipeapp.BR
 import com.tasty.recipeapp.MainApplication
+import com.tasty.recipeapp.R
+import com.tasty.recipeapp.databinding.ActivityDashboardScreenBinding
 import com.tasty.recipeapp.di.components.ActivityComponent
 import com.tasty.recipeapp.di.components.DaggerActivityComponent
 import com.tasty.recipeapp.di.modules.ActivityModule
 import com.tasty.recipeapp.ui.dashboardScreen.adapters.CategoriesAdapter
 import com.tasty.recipeapp.ui.dashboardScreen.adapters.CategoryClickListener
+import com.tasty.recipeapp.ui.dashboardScreen.adapters.NewRecipeClickListener
 import com.tasty.recipeapp.ui.dashboardScreen.adapters.NewRecipesAdapter
 import com.tasty.recipeapp.ui.dashboardScreen.adapters.ShowCaseOnClickListener
 import com.tasty.recipeapp.ui.dashboardScreen.adapters.ShowcaseAdapter
@@ -26,7 +26,8 @@ import com.tasty.recipeapp.ui.searchScreen.SearchScreen
 import javax.inject.Inject
 
 
-class DashboardScreen : AppCompatActivity(), ShowCaseOnClickListener, CategoryClickListener {
+class DashboardScreen : AppCompatActivity(), ShowCaseOnClickListener, CategoryClickListener,
+    NewRecipeClickListener {
 
     private lateinit var binding: ActivityDashboardScreenBinding
 
@@ -53,8 +54,8 @@ class DashboardScreen : AppCompatActivity(), ShowCaseOnClickListener, CategoryCl
         super.onCreate(savedInstanceState)
 
         initDependencyInjection()
-
         initRecyclerViews()
+        setProfilePhoto()
 
         viewModel.getRecipes().observe(this) {
             showcaseAdapter.updateList(it)
@@ -72,7 +73,12 @@ class DashboardScreen : AppCompatActivity(), ShowCaseOnClickListener, CategoryCl
             startActivity(Intent(this, SearchScreen::class.java))
         }
 
-        setProfilePhoto()
+
+        viewModel.getNewRecipeData()
+
+        viewModel.getNewRecipes().observe(this) {
+            newRecipesAdapter.updateList(it)
+        }
     }
 
     private fun setProfilePhoto() {
@@ -90,6 +96,7 @@ class DashboardScreen : AppCompatActivity(), ShowCaseOnClickListener, CategoryCl
 
         categoriesAdapter.setClickListener(this)
         showcaseAdapter.setClickListener(this)
+        newRecipesAdapter.setNewRecipeClickListener(this)
         binding.showcase.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.showcase.adapter = showcaseAdapter
@@ -98,8 +105,6 @@ class DashboardScreen : AppCompatActivity(), ShowCaseOnClickListener, CategoryCl
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.newRecipes.adapter = newRecipesAdapter
 
-        newRecipesAdapter.updateList()
-        Log.d("COUNT", categoriesAdapter.itemCount.toString())
     }
 
     private fun initData() {
@@ -138,6 +143,13 @@ class DashboardScreen : AppCompatActivity(), ShowCaseOnClickListener, CategoryCl
 
     override fun onCategoryClick(categoryName: String) {
         viewModel.getRecipeData(categoryName)
+    }
+
+    override fun newRecipeClick(mealId: String) {
+        val intent = (Intent(this, RecipeDetailsScreen::class.java))
+        intent.putExtra("id", mealId)
+        intent.putExtra("firebase", "true")
+        startActivity(intent)
     }
 
 

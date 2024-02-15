@@ -6,53 +6,30 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.tasty.recipeapp.databinding.ItemNewRecipeBinding
-import com.tasty.recipeapp.model.response.Categories
+import com.tasty.recipeapp.model.response.NewRecipe
 import javax.inject.Inject
 
 
 class NewRecipesAdapter @Inject constructor() :
-    RecyclerView.Adapter<NewRecipesAdapter.CategoriesViewHolder>() {
+    RecyclerView.Adapter<NewRecipesAdapter.NewRecipeViewHolder>() {
 
-    private var items = ArrayList<Categories>()
+    private var items = ArrayList<NewRecipe>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoriesViewHolder {
+    lateinit var listener: NewRecipeClickListener
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewRecipeViewHolder {
         var layout =
             ItemNewRecipeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return CategoriesViewHolder(layout)
+        return NewRecipeViewHolder(layout)
     }
 
-    fun updateList() {
-        items.add(
-            Categories(
-                strCategory = "Beef",
-                strCategoryThumb = "https://www.themealdb.com/images/category/beef.png"
-            )
-        )
-        items.add(
-            Categories(
-                strCategory = "Chicken",
-                strCategoryThumb = "https://www.themealdb.com/images/category/chicken.png"
-            )
-        )
-        items.add(
-            Categories(
-                strCategory = "Desert",
-                strCategoryThumb = "https://www.themealdb.com/images/category/dessert.png"
-            )
-        )
-        items.add(
-            Categories(
-                strCategory = "Lamb",
-                strCategoryThumb = "https://www.themealdb.com/images/category/lamb.png"
-            )
-        )
-        items.add(
-            Categories(
-                strCategory = "Pasta",
-                strCategoryThumb = "https://www.themealdb.com/images/category/pasta.png"
-            )
-        )
-        items.add(Categories(strCategory = "Fifth"))
+    fun setNewRecipeClickListener(listener: NewRecipeClickListener){
+        this.listener=listener
+    }
+
+    fun updateList(newRecipes: ArrayList<NewRecipe>) {
+        items.clear()
+        items.addAll(newRecipes)
         notifyDataSetChanged()
     }
 
@@ -60,10 +37,10 @@ class NewRecipesAdapter @Inject constructor() :
         return items.size
     }
 
-    inner class CategoriesViewHolder(val binding: ItemNewRecipeBinding) :
+    inner class NewRecipeViewHolder(val binding: ItemNewRecipeBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    override fun onBindViewHolder(holder: CategoriesViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: NewRecipeViewHolder, position: Int) {
         with(holder) {
             with(items[position]) {
                 val circularProgressDrawable = CircularProgressDrawable(binding.root.context)
@@ -71,17 +48,29 @@ class NewRecipesAdapter @Inject constructor() :
                 circularProgressDrawable.centerRadius = 30f
                 circularProgressDrawable.start()
 
-                binding.title.text = this.strCategory
+                binding.title.text = this.name
+                binding.chef.text=this.chef
+                binding.time.text=this.time
+
+                binding.ratingBar.rating=this.rating.toFloat()
+
                 Glide.with(binding.root.context)
-                    .load(this.strCategoryThumb)
+                    .load(this.image)
                     .placeholder(circularProgressDrawable)
                     .into(binding.thumbnail)
+
+                binding.root.setOnClickListener {
+                    listener.newRecipeClick(this.id)
+                }
+
             }
 
-            binding.root.setOnClickListener {
-            }
         }
     }
+}
+
+interface NewRecipeClickListener{
+    fun newRecipeClick(mealId:String)
 }
 
 

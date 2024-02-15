@@ -1,4 +1,4 @@
-package com.tasty.recipeapp.ui.recipeDetails
+package com.tasty.recipeapp.ui.addNewRecipe
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -6,13 +6,13 @@ import com.google.firebase.firestore.FirebaseFirestore
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class RecipeDetailsViewModelFactory @Inject constructor(
-    val repository: RecipeDetailsRepository,
-    val compositeDisposable: CompositeDisposable,
-    val firestore: FirebaseFirestore
+class AddNewRecipeViewModelFactory @Inject constructor(
+    val firestore: FirebaseFirestore,
+    val repository: AddNewRecipeRepository,
+    val compositeDisposable: CompositeDisposable
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return RecipeDetailsViewModel(repository, compositeDisposable,firestore) as T
+        return AddNewRecipeViewModel(firestore, repository,compositeDisposable) as T
     }
 }

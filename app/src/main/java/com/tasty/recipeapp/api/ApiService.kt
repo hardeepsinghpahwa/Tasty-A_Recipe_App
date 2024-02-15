@@ -1,6 +1,7 @@
 package com.tasty.recipeapp.api
 
 import com.tasty.recipeapp.model.response.CategoriesResponse
+import com.tasty.recipeapp.model.response.IngredientResponse
 import com.tasty.recipeapp.model.response.RecipeResponse
 import com.tasty.recipeapp.model.response.SearchResponse
 import io.reactivex.Observable
@@ -18,6 +19,11 @@ interface ApiService {
     fun getRecipes(
         @Url url: String
     ): Observable<RecipeResponse>
+
+    @GET
+    fun getIngredients(
+        @Url url: String
+    ): Observable<IngredientResponse>
 
     @GET
     fun searchRecipes(

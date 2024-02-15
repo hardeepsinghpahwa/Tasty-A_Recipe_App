@@ -4,6 +4,8 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.tasty.recipeapp.MainApplication
 import com.tasty.recipeapp.api.ApiService
@@ -30,6 +32,12 @@ class ApplicationModule {
     @ApplicationScope
     fun providesFirebaseAuth(): FirebaseAuth {
         return Firebase.auth
+    }
+
+    @Provides
+    @ApplicationScope
+    fun providesFirebaseFirestore(): FirebaseFirestore {
+        return Firebase.firestore
     }
 
     @Provides

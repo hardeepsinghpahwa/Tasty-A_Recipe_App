@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tasty.recipeapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+
     <application
         android:name=".MainApplication"
         android:allowBackup="true"
@@ -13,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RecipeApp"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.addNewRecipe.AddNewRecipe"
+            android:exported="false" />
         <activity
             android:name=".ui.recipeDetails.RecipeDetailsScreen"
             android:exported="false" />
