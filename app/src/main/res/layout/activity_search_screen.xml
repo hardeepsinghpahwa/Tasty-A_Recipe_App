@@ -44,7 +44,7 @@
             app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout"
+            android:id="@+id/nameLayout"
             style="@style/SearchTextInputLayoutStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -82,9 +82,9 @@
             app:cardBackgroundColor="#129575"
             app:cardCornerRadius="10dp"
             app:cardUseCompatPadding="true"
-            app:layout_constraintBottom_toBottomOf="@+id/textInputLayout"
+            app:layout_constraintBottom_toBottomOf="@+id/nameLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textInputLayout">
+            app:layout_constraintTop_toTopOf="@+id/nameLayout">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -105,8 +105,8 @@
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/textInputLayout"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+            app:layout_constraintStart_toStartOf="@+id/nameLayout"
+            app:layout_constraintTop_toBottomOf="@+id/nameLayout" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/catFilters"
@@ -139,7 +139,7 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/nameLayout" />
 
         <RelativeLayout
             android:layout_width="match_parent"

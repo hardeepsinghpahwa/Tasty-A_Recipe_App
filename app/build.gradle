@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.tasty.recipeapp"
-        minSdk 23
+        minSdk 24
         targetSdk 34
         versionCode 1
         versionName "1.0"
@@ -65,7 +65,7 @@ dependencies {
     // Add the dependency for the Firebase Authentication library
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation("com.google.firebase:firebase-auth")
-
+    implementation("com.google.firebase:firebase-storage")
     implementation("com.google.firebase:firebase-firestore")
 
     // Also add the dependency for the Google Play services library and specify its version

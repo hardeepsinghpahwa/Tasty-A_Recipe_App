@@ -1,6 +1,8 @@
 package com.tasty.recipeapp.ui.dialogs
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +18,8 @@ import com.tasty.recipeapp.databinding.DialogSelectIngredientsBinding
 import com.tasty.recipeapp.model.response.Ingredient
 import com.tasty.recipeapp.ui.addNewRecipe.adapters.IngredientAdapter
 import com.tasty.recipeapp.ui.addNewRecipe.adapters.IngredientClickListener
+import java.util.stream.Collectors
+
 
 class SelectIngredientsDialog : DialogFragment(), IngredientClickListener {
 
@@ -89,6 +93,11 @@ class SelectIngredientsDialog : DialogFragment(), IngredientClickListener {
                 ingredientMeasures.removeAt(position)
                 selectedIngredients.removeAt(position)
                 adapter2.updateList(selectedIngredients)
+                if (selectedIngredients.isEmpty()) {
+                    binding.ingredientsNames.visibility = View.GONE
+                } else {
+                    binding.ingredientsNames.visibility = View.VISIBLE
+                }
             }
 
         })
@@ -96,11 +105,44 @@ class SelectIngredientsDialog : DialogFragment(), IngredientClickListener {
         binding.ingredientsNames.adapter = adapter2
         binding.ingredientsNames.layoutManager = LinearLayoutManager(requireContext())
         adapter2.updateList(selectedIngredients)
+        if (selectedIngredients.isEmpty()) {
+            binding.ingredientsNames.visibility = View.GONE
+        } else {
+            binding.ingredientsNames.visibility = View.VISIBLE
+        }
         binding.ingredientsNames.adapter = adapter2
+
+        binding.searchLayout.setEndIconOnClickListener {
+            binding.search.setText("")
+        }
 
         binding.close.setOnClickListener {
             dialog?.dismiss()
         }
+
+        binding.search.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if (p0 != null) {
+                    if (p0.isNotEmpty()) {
+                        val filteredArticleList: List<Ingredient> =
+                            ingredients.stream().filter { ingredient ->
+                                ingredient.strIngredient.startsWith(p0)
+                            }.collect(Collectors.toList())
+
+                        adapter.updateList(ArrayList(filteredArticleList))
+                    } else {
+                        adapter.updateList(ingredients)
+                    }
+                }
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+        })
 
         return binding.root
     }
@@ -135,6 +177,11 @@ class SelectIngredientsDialog : DialogFragment(), IngredientClickListener {
                 ingredient.measure = customLayout.name.text.toString()
                 selectedIngredients.add(ingredient)
                 adapter2.updateList(selectedIngredients)
+                if (selectedIngredients.isEmpty()) {
+                    binding.ingredientsNames.visibility = View.GONE
+                } else {
+                    binding.ingredientsNames.visibility = View.VISIBLE
+                }
             } else {
                 Toast.makeText(requireContext(), "Ingredient Already Added", Toast.LENGTH_SHORT)
                     .show()

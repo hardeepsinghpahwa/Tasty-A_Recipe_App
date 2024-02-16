@@ -12,7 +12,7 @@
         android:background="@color/back">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout"
+            android:id="@+id/nameLayout"
             style="@style/SearchTextInputLayoutStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

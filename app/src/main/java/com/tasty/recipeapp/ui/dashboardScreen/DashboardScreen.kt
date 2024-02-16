@@ -15,6 +15,7 @@ import com.tasty.recipeapp.databinding.ActivityDashboardScreenBinding
 import com.tasty.recipeapp.di.components.ActivityComponent
 import com.tasty.recipeapp.di.components.DaggerActivityComponent
 import com.tasty.recipeapp.di.modules.ActivityModule
+import com.tasty.recipeapp.ui.addNewRecipe.AddNewRecipe
 import com.tasty.recipeapp.ui.dashboardScreen.adapters.CategoriesAdapter
 import com.tasty.recipeapp.ui.dashboardScreen.adapters.CategoryClickListener
 import com.tasty.recipeapp.ui.dashboardScreen.adapters.NewRecipeClickListener
@@ -78,6 +79,10 @@ class DashboardScreen : AppCompatActivity(), ShowCaseOnClickListener, CategoryCl
 
         viewModel.getNewRecipes().observe(this) {
             newRecipesAdapter.updateList(it)
+        }
+
+        binding.addNew.setOnClickListener{
+            startActivity(Intent(this,AddNewRecipe::class.java))
         }
     }
 

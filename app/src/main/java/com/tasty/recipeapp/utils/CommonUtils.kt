@@ -35,7 +35,7 @@ class CommonUtils {
 
         }
 
-        fun showSnackBar(msg: String, view: View) {
+        fun showSuccessSnackBar(msg: String, view: View) {
             val snack = Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
             val text =
                 snack.view.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
@@ -48,6 +48,21 @@ class CommonUtils {
             view.layoutParams = params
             snack.show()
         }
+
+        fun showFailureSnackBar(msg: String, view: View) {
+            val snack = Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
+            val text =
+                snack.view.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
+            text.setTextColor(ContextCompat.getColor(view.context, R.color.white))
+            val view = snack.view
+            val params = view.layoutParams as FrameLayout.LayoutParams
+            snack.view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.red))
+            params.gravity = Gravity.TOP
+            params.width = ViewGroup.LayoutParams.MATCH_PARENT
+            view.layoutParams = params
+            snack.show()
+        }
+
 
     }
 }

@@ -37,18 +37,52 @@
             app:layout_constraintTop_toTopOf="@+id/close" />
 
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/searchLayout"
+            style="@style/SearchTextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/back"
+            app:boxStrokeColor="@color/tealGreen"
+            app:endIconDrawable="@drawable/ic_clear"
+            app:endIconMode="custom"
+            app:endIconTint="@color/light_grey"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView18">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:drawablePadding="10dp"
+                android:hint="Search Ingredient..."
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textColorHint="@color/hintColor"
+                android:textCursorDrawable="@null"
+                android:textSize="14sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ingredientsNames"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/black"
             android:layout_marginHorizontal="10dp"
-            android:padding="5dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/stroked_corners"
+            android:padding="5dp"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView18" />
+            app:layout_constraintTop_toBottomOf="@+id/searchLayout" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ingredients"
