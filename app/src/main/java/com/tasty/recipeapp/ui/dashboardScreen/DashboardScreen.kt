@@ -29,6 +29,7 @@ import com.tasty.recipeapp.ui.dashboardScreen.adapters.NewRecipeClickListener
 import com.tasty.recipeapp.ui.dashboardScreen.adapters.NewRecipesAdapter
 import com.tasty.recipeapp.ui.dashboardScreen.adapters.ShowCaseOnClickListener
 import com.tasty.recipeapp.ui.dashboardScreen.adapters.ShowcaseAdapter
+import com.tasty.recipeapp.ui.notifications.Notifications
 import com.tasty.recipeapp.ui.recipeDetails.RecipeDetailsScreen
 import com.tasty.recipeapp.ui.searchScreen.SearchScreen
 import javax.inject.Inject
@@ -94,6 +95,9 @@ class DashboardScreen : AppCompatActivity(), ShowCaseOnClickListener, CategoryCl
         askNotificationPermission()
         checkFirebaseToken()
 
+        binding.notifications.setOnClickListener {
+            startActivity(Intent(this,Notifications::class.java))
+        }
     }
 
 

@@ -5,9 +5,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:name=".MainApplication"
@@ -20,6 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RecipeApp"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.notifications.Notifications"
+            android:exported="false" />
         <activity
             android:name=".ui.addNewRecipe.AddNewRecipe"
             android:exported="false" />
@@ -48,7 +52,6 @@
             android:name=".MainActivity"
             android:exported="false" />
 
-
         <service
             android:name=".notifications.MyFirebaseMessagingService"
             android:exported="false">
@@ -56,7 +59,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
     </application>
 
 </manifest>

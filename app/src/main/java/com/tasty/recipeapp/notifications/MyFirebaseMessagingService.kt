@@ -18,6 +18,9 @@ import androidx.core.app.NotificationManagerCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.Gson
@@ -61,6 +64,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         }
 
         if (remoteMessage.data.isNotEmpty()) {
+            saveNotification(remoteMessage.data)
 
             if (remoteMessage.data["title"] != null) {
                 title = remoteMessage.data["title"]!!
@@ -86,7 +90,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                     intent1.putExtra("id", notificationData.mealId)
                     intent1.putExtra("firebase", notificationData.firebase)
                 }
-                Log.d("DETAILSSSS",notificationData.mealId)
+                Log.d("DETAILSSSS", notificationData.mealId)
                 pendingIntent =
                     PendingIntent.getActivity(this, 0, intent1, PendingIntent.FLAG_IMMUTABLE)
 
@@ -190,7 +194,20 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         super.onNewToken(token)
 
-        Log.d("FTOKENNEW",token)
+        Log.d("FTOKENNEW", token)
+
+    }
+
+    private fun saveNotification(data: Map<String,String>) {
+        val firebase = Firebase.firestore
+        val auth = Firebase.auth
+
+        firebase.collection("users").document(auth.currentUser!!.uid).collection("notifications")
+            .add(data).addOnSuccessListener {
+
+        }.addOnFailureListener {
+
+        }
 
     }
 }

@@ -6,23 +6,12 @@
         android:id="@+id/home"
         android:icon="@drawable/ic_home"
         android:title=""/>
-
-    <item
-        android:id="@+id/Search"
-        android:icon="@drawable/ic_bookmark"
-        android:title=""/>
-
     <item
         android:id="@+id/placeholder"
         android:title="" />
 
     <item
-        android:id="@+id/Profile"
-        android:icon="@drawable/ic_notification"
-        android:title=""/>
-
-    <item
-        android:id="@+id/Settings"
+        android:id="@+id/profile"
         android:icon="@drawable/ic_account"
         android:title="" />
 </menu>
