@@ -141,6 +141,45 @@ class RecipeDetailsViewModel(
                         name.set(recipe.strMeal)
                         subTitle.set(recipe.strArea + " " + recipe.strCategory)
                         image.postValue(recipe.strMealThumb)
+                        val instrn: String = recipe.strInstructions.replace("\n", "\n• ")
+
+                        instructions.set("• $instrn")
+
+
+                        var ing = ""
+                        var list = arrayListOf<String>()
+
+                        for (i in 0..20) {
+
+
+                            val ingField: Field =
+                                recipe::class.java.getDeclaredField("strIngredient${i + 1}")
+                            ingField.isAccessible = true
+
+                            val measField: Field =
+                                recipe::class.java.getDeclaredField("strMeasure${i + 1}")
+                            measField.isAccessible = true
+
+
+                            val ingObject: String =
+                                ingField.get(recipe) as String? ?: break
+
+                            if (ingObject.isEmpty()) {
+                                break
+                            }
+
+                            val measObject: String =
+                                measField.get(recipe) as String? ?: break
+
+
+                            list.add(ingObject)
+                            ing += "•  $measObject $ingObject\n"
+
+                        }
+
+                        ingredients.set(ing)
+                        ingredientsImgs.postValue(list)
+
 
                     }
                     loading.set(false)

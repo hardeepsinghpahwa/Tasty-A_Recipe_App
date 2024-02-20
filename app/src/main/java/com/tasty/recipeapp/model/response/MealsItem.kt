@@ -54,5 +54,5 @@ data class MealsItem(var strImageSource: String = "",
                      var strMeasure19: String? = "",
                      var strMeasure20: String? = "",
                      var time: String? = "",
-                     var rating: String? = "",
+                     var rating: Int? = 0,
                      )

@@ -108,9 +108,9 @@ class AddNewRecipe : AppCompatActivity(), SelectIngredientsDialog.GetSelectedIng
         }
 
         binding.saveRecipe.setOnClickListener {
-            //if (checkValidations()) {
+            if (checkValidations()) {
                 viewModel.addRecipeCall()
-            //}
+            }
         }
 
         addListeners()
@@ -212,7 +212,7 @@ class AddNewRecipe : AppCompatActivity(), SelectIngredientsDialog.GetSelectedIng
             return false
         }
 
-        if (viewModel.time.get()!!.isNotEmpty()) {
+        if (viewModel.time.get()!!.isEmpty()) {
             binding.timeLayout.error = "Enter time"
             binding.timeLayout.requestFocus()
             return false

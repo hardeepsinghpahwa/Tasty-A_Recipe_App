@@ -109,7 +109,7 @@ class AddNewRecipeViewModel(
         obj.strYoutube = ytLink.get().toString()
         obj.strMealThumb = image
         obj.time = time.get()
-        obj.rating = rating.get().toString()
+        obj.rating = rating.get()
 
         for (i in 0..<selectedIngredients.size) {
             val ingredientField: Field =
@@ -121,7 +121,7 @@ class AddNewRecipeViewModel(
             ingredientField.set(obj, selectedIngredients[i].strIngredient)
 
             val measureField: Field =
-                obj::class.java.getDeclaredField("strIngredient${i + 1}")
+                obj::class.java.getDeclaredField("strMeasure${i + 1}")
 
 
             measureField.isAccessible = true

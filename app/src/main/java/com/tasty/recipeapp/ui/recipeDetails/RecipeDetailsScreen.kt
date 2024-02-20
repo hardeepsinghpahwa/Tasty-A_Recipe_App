@@ -1,6 +1,7 @@
 package com.tasty.recipeapp.ui.recipeDetails
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -66,10 +67,13 @@ class RecipeDetailsScreen : AppCompatActivity(), ThumbnailClickListener {
     }
 
     private fun showData() {
-        val fromFirebase = intent.getStringExtra("firebase") != null
+        val fromFirebase = intent.getStringExtra("firebase") =="true"
         if (fromFirebase) {
+            Log.d("DETAILSSSS",intent.getStringExtra("firebase").toString())
+            Log.d("DETAILSSSS",intent.getStringExtra("id").toString())
             viewModel.getRecipeDetailsFromFirebase(intent.getStringExtra("id").toString())
         } else {
+            Log.d("DETAILSSSSNON",intent.getStringExtra("id").toString())
             viewModel.getRecipeDetails(intent.getStringExtra("id").toString())
         }
     }

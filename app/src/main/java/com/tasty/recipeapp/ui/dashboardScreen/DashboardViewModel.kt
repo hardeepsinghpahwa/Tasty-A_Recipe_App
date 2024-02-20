@@ -9,7 +9,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.tasty.recipeapp.model.response.Categories
 import com.tasty.recipeapp.model.response.CategoriesResponse
 import com.tasty.recipeapp.model.response.MealData
-import com.tasty.recipeapp.model.response.NewRecipe
+import com.tasty.recipeapp.model.response.MealsItem
 import com.tasty.recipeapp.model.response.RecipeResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -28,8 +28,8 @@ class DashboardViewModel(
     private val recipes: MutableLiveData<ArrayList<MealData>> =
         MutableLiveData<ArrayList<MealData>>()
 
-    private val newRecipes: MutableLiveData<ArrayList<NewRecipe>> =
-        MutableLiveData<ArrayList<NewRecipe>>()
+    private val newRecipes: MutableLiveData<ArrayList<MealsItem>> =
+        MutableLiveData<ArrayList<MealsItem>>()
 
     val retry = ObservableField(false)
     val loading = ObservableField(false)
@@ -38,7 +38,7 @@ class DashboardViewModel(
         return categories
     }
 
-    fun getNewRecipes(): LiveData<ArrayList<NewRecipe>> {
+    fun getNewRecipes(): LiveData<ArrayList<MealsItem>> {
         return newRecipes
     }
 
@@ -121,10 +121,10 @@ class DashboardViewModel(
         firestore.collection("new_recipes").get()
             .addOnSuccessListener {
                 loading.set(false)
-                val newRecipe = arrayListOf<NewRecipe>()
+                val newRecipe = arrayListOf<MealsItem>()
                 for (ds in it.documents) {
-                    val rec = ds.toObject<NewRecipe>(
-                        NewRecipe::class.java
+                    val rec = ds.toObject<MealsItem>(
+                        MealsItem::class.java
                     )
                     newRecipe.add(rec!!)
                 }
@@ -134,6 +134,18 @@ class DashboardViewModel(
                 retry.set(true)
                 loading.set(false)
                 Log.d("SNAPSHOT", it.message.toString())
+            }
+    }
+
+    fun saveFirebaseToken(userId: String, token: String) {
+
+        val map = HashMap<String, String>()
+        map["firebase_token"] = token
+
+        firestore.collection("users").document(userId).set(map)
+            .addOnSuccessListener {
+            }
+            .addOnFailureListener {
             }
     }
 }
