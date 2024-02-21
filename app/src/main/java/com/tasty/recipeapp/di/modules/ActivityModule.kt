@@ -2,6 +2,7 @@ package com.tasty.recipeapp.di.modules
 
 import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.tasty.recipeapp.di.ActivityScope
@@ -20,6 +21,10 @@ class ActivityModule {
 
     constructor(activity: Activity) {
         this.activity = activity
+    }
+
+    constructor(fragment: Fragment) {
+        this.activity = fragment.requireActivity()
     }
 
     @Provides

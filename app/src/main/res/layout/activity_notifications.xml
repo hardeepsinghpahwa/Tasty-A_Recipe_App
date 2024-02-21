@@ -19,7 +19,7 @@
         tools:context=".ui.notifications.Notifications">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/back"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="15dp"
@@ -37,10 +37,10 @@
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+            app:layout_constraintBottom_toBottomOf="@+id/back"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView2" />
+            app:layout_constraintTop_toTopOf="@+id/back" />
 
 
         <androidx.recyclerview.widget.RecyclerView

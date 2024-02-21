@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.tasty.recipeapp.ui.account.AccountViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/back"
+        >
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".ui.account.AccountScreen">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="40dp"
+                    app:cardBackgroundColor="#FFCE80"
+                    app:cardCornerRadius="10dp"
+                    app:cardUseCompatPadding="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="3dp"
+                        app:cardBackgroundColor="@color/transparent"
+                        app:cardCornerRadius="10dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/profile_pic"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:src="@drawable/avatar" />
+
+                    </androidx.cardview.widget.CardView>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@{viewModel.name}"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/cardView"
+                    app:layout_constraintStart_toStartOf="@+id/cardView"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+                <TextView
+                    android:id="@+id/textView22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.email}"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="@+id/cardView"
+                    app:layout_constraintStart_toStartOf="@+id/cardView"
+                    app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/mainLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView22">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/rounded_corners"
+                        android:paddingVertical="15dp"
+                        android:visibility="@{viewModel.edit?View.GONE:View.VISIBLE}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <LinearLayout
+                            android:id="@+id/top"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/textView23"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="A cuisine you absolutely love"
+                                android:textColor="@color/black"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/edit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="20dp"
+                                android:src="@drawable/ic_edit" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/textView24"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:text="@{viewModel.cuisine}"
+                            android:textColor="@color/light_grey"
+                            android:hint="Favourite Cuisine"
+                            android:textColorHint="@color/light_grey"
+                            android:textSize="16sp"
+                            android:textStyle="bold|italic"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/top"
+                            app:layout_constraintTop_toBottomOf="@+id/top" />
+
+
+                        <TextView
+                            android:id="@+id/textView25"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="20dp"
+                            android:text="One food you like the most"
+                            android:textColor="@color/black"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+                        <TextView
+                            android:id="@+id/textView26"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:text="@{viewModel.food}"
+                            android:textColor="@color/light_grey"
+                            android:hint="Favourite Food"
+                            android:textColorHint="@color/light_grey"
+                            android:textSize="16sp"
+                            android:textStyle="bold|italic"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/top"
+                            app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+                        <TextView
+                            android:id="@+id/textView27"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="20dp"
+                            android:text="A dream chef to cook food with"
+                            android:textColor="@color/black"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+                        <TextView
+                            android:id="@+id/textView28"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:text="@{viewModel.chef}"
+                            android:textColor="@color/light_grey"
+                            android:textSize="16sp"
+                            android:hint="Favourite Chef"
+                            android:textColorHint="@color/light_grey"
+                            android:textStyle="bold|italic"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/top"
+                            app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
+                        <TextView
+                            android:id="@+id/textView29"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="20dp"
+                            android:text="I love to eat at"
+                            android:textColor="@color/black"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:text="@{viewModel.restaurant}"
+                            android:textColor="@color/light_grey"
+                            android:textSize="16sp"
+                            android:textStyle="bold|italic"
+                            android:hint="Favourite Resturant"
+                            android:textColorHint="@color/light_grey"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/top"
+                            app:layout_constraintTop_toBottomOf="@+id/textView29" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/rounded_corners"
+                        android:paddingVertical="15dp"
+                        android:visibility="@{viewModel.edit?View.VISIBLE:View.GONE}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+
+                        <TextView
+                            android:id="@+id/textView30"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_weight="1"
+                            android:text="A cuisine you absolutely love"
+                            android:textColor="@color/black"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/cuisineLayout"
+                            style="@style/SearchTextInputLayoutStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:background="@color/white"
+                            app:boxStrokeColor="@color/tealGreen"
+                            app:hintEnabled="false"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/textView30"
+                            app:layout_constraintTop_toBottomOf="@+id/textView30">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/cuisine"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Cuisine Name"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:text="@={viewModel.cuisine}"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/hintColor"
+                                android:textCursorDrawable="@null" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <TextView
+                            android:id="@+id/text1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="20dp"
+                            android:text="One food you like the most"
+                            android:textColor="@color/black"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/cuisineLayout" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/foodLayout"
+                            style="@style/SearchTextInputLayoutStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:background="@color/white"
+                            app:boxStrokeColor="@color/tealGreen"
+                            app:hintEnabled="false"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/text1"
+                            app:layout_constraintTop_toBottomOf="@+id/text1">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/food"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Food Name"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:text="@={viewModel.food}"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/hintColor"
+                                android:textCursorDrawable="@null" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <TextView
+                            android:id="@+id/text3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="20dp"
+                            android:text="A dream chef to cook food with"
+                            android:textColor="@color/black"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/foodLayout" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/chefLayout"
+                            style="@style/SearchTextInputLayoutStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:background="@color/white"
+                            app:boxStrokeColor="@color/tealGreen"
+                            app:hintEnabled="false"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/text3"
+                            app:layout_constraintTop_toBottomOf="@+id/text3">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/chef"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Chef Name"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:text="@={viewModel.chef}"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/hintColor"
+                                android:textCursorDrawable="@null" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:id="@+id/text5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="20dp"
+                            android:text="I love to eat at"
+                            android:textColor="@color/black"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/chefLayout" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/restaurantLayout"
+                            style="@style/SearchTextInputLayoutStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:background="@color/white"
+                            app:boxStrokeColor="@color/tealGreen"
+                            app:hintEnabled="false"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/text5"
+                            app:layout_constraintTop_toBottomOf="@+id/text5">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/restaurant"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Restaurant Name"
+                                android:inputType="text"
+                                android:maxLines="1"
+                                android:text="@={viewModel.restaurant}"
+                                android:textColor="@color/black"
+                                android:textColorHint="@color/hintColor"
+                                android:textCursorDrawable="@null" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:id="@+id/save"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/button"
+                            android:drawablePadding="10dp"
+                            android:gravity="center"
+                            android:includeFontPadding="false"
+                            android:paddingHorizontal="40dp"
+                            android:paddingVertical="10dp"
+                            android:text="Save"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            app:layout_constraintEnd_toEndOf="@+id/restaurantLayout"
+                            app:layout_constraintStart_toStartOf="@+id/restaurantLayout"
+                            app:layout_constraintTop_toBottomOf="@+id/restaurantLayout" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="100dp"
+                    android:background="@drawable/button"
+                    android:backgroundTint="@color/red"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:paddingHorizontal="40dp"
+                    android:paddingVertical="5dp"
+                    android:text="Logout"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/mainLayout" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#85000000"
+            android:elevation="10dp"
+            android:visibility="@{viewModel.retry.booleanValue() || viewModel.loading.booleanValue() ?View.VISIBLE:View.GONE}"
+            tools:visibility="gone">
+
+            <ProgressBar
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerInParent="true"
+                android:indeterminateDrawable="@drawable/progress_bar"
+                android:visibility="@{viewModel.loading.booleanValue() ?View.VISIBLE:View.GONE}" />
+
+
+            <TextView
+                android:id="@+id/retry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@drawable/rounded_corners"
+                android:includeFontPadding="false"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:text="Retry"
+                android:textColor="@color/tealGreen"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="@{viewModel.retry.booleanValue() ?View.VISIBLE:View.GONE}" />
+
+        </RelativeLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

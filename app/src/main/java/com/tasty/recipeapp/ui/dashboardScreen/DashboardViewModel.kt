@@ -139,10 +139,10 @@ class DashboardViewModel(
 
     fun saveFirebaseToken(userId: String, token: String) {
 
-        val map = HashMap<String, String>()
+        val map = HashMap<String, Any>()
         map["firebase_token"] = token
 
-        firestore.collection("users").document(userId).set(map)
+        firestore.collection("users").document(userId).update(map)
             .addOnSuccessListener {
             }
             .addOnFailureListener {

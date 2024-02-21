@@ -48,6 +48,10 @@ class Notifications : AppCompatActivity(), NotificationClickListener {
         viewModel.getNotifications().observe(this) {
             notificationAdapter.updateList(it)
         }
+
+        binding.back.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
 
 

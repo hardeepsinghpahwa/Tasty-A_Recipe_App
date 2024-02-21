@@ -13,7 +13,7 @@
 
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
@@ -54,9 +54,9 @@
 
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="10dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="15dp"
                 android:id="@+id/notifications"
                 android:src="@drawable/ic_notification"
                 app:layout_constraintBottom_toBottomOf="@+id/cardView"
@@ -193,40 +193,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bottomAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:backgroundTint="#FCFCFC"
-            app:contentInsetStart="0dp"
-            app:elevation="5dp"
-            app:fabCradleMargin="10dp"
-            app:fabCradleRoundedCornerRadius="30dp"
-            app:fabCradleVerticalOffset="0dp">
-
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottomNavigationView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                app:elevation="0dp"
-                app:itemIconTint="@color/bottom_nav_color"
-                app:labelVisibilityMode="unlabeled"
-                app:menu="@menu/bottom_nav_menu" />
-
-        </com.google.android.material.bottomappbar.BottomAppBar>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/add_new"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_add"
-            app:backgroundTint="@color/tealGreen"
-            app:layout_anchor="@id/bottomAppBar"
-            app:tint="@android:color/white" />
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -261,6 +227,6 @@
         </RelativeLayout>
 
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </RelativeLayout>
 
 </layout>

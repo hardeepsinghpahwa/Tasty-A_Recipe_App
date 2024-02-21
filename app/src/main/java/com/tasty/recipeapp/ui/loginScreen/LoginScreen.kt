@@ -12,13 +12,13 @@ import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.tasty.recipeapp.MainApplication
 import com.tasty.recipeapp.R
 import com.tasty.recipeapp.databinding.ActivityLoginScreenBinding
-import com.tasty.recipeapp.MainApplication
 import com.tasty.recipeapp.di.components.ActivityComponent
 import com.tasty.recipeapp.di.components.DaggerActivityComponent
 import com.tasty.recipeapp.di.modules.ActivityModule
-import com.tasty.recipeapp.ui.dashboardScreen.DashboardScreen
+import com.tasty.recipeapp.ui.main.MainScreen
 import javax.inject.Inject
 
 
@@ -97,7 +97,8 @@ class LoginScreen : AppCompatActivity() {
                                                 "Google sign in success",
                                                 Toast.LENGTH_SHORT
                                             ).show()
-                                            startActivity(Intent(this, DashboardScreen::class.java))
+                                            finish()
+                                            startActivity(Intent(this, MainScreen::class.java))
                                         }
 
                                         Log.d("SIGNIN", "User signed In")

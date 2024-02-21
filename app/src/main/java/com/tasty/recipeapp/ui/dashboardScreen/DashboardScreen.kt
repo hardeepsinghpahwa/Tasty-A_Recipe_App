@@ -5,11 +5,14 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.OnCompleteListener
@@ -18,11 +21,10 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.tasty.recipeapp.BR
 import com.tasty.recipeapp.MainApplication
 import com.tasty.recipeapp.R
-import com.tasty.recipeapp.databinding.ActivityDashboardScreenBinding
+import com.tasty.recipeapp.databinding.FragmentDashboardScreenBinding
 import com.tasty.recipeapp.di.components.ActivityComponent
 import com.tasty.recipeapp.di.components.DaggerActivityComponent
 import com.tasty.recipeapp.di.modules.ActivityModule
-import com.tasty.recipeapp.ui.addNewRecipe.AddNewRecipe
 import com.tasty.recipeapp.ui.dashboardScreen.adapters.CategoriesAdapter
 import com.tasty.recipeapp.ui.dashboardScreen.adapters.CategoryClickListener
 import com.tasty.recipeapp.ui.dashboardScreen.adapters.NewRecipeClickListener
@@ -35,10 +37,10 @@ import com.tasty.recipeapp.ui.searchScreen.SearchScreen
 import javax.inject.Inject
 
 
-class DashboardScreen : AppCompatActivity(), ShowCaseOnClickListener, CategoryClickListener,
+class DashboardScreen : Fragment(), ShowCaseOnClickListener, CategoryClickListener,
     NewRecipeClickListener {
 
-    private lateinit var binding: ActivityDashboardScreenBinding
+    private lateinit var binding: FragmentDashboardScreenBinding
 
     private lateinit var component: ActivityComponent
 
@@ -59,18 +61,31 @@ class DashboardScreen : AppCompatActivity(), ShowCaseOnClickListener, CategoryCl
 
     private val viewModel: DashboardViewModel by viewModels { dashboardViewModelFactory }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.setVariable(BR.viewModel, viewModel)
+        binding.executePendingBindings()
+    }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_dashboard_screen, container, false)
 
         initDependencyInjection()
         initRecyclerViews()
         setProfilePhoto()
 
-        viewModel.getRecipes().observe(this) {
+        viewModel.getRecipes().observe(viewLifecycleOwner) {
             showcaseAdapter.updateList(it)
         }
 
-        viewModel.getCategories().observe(this) {
+        viewModel.getCategories().observe(viewLifecycleOwner) {
             categoriesAdapter.updateList(it)
         }
 
@@ -79,27 +94,23 @@ class DashboardScreen : AppCompatActivity(), ShowCaseOnClickListener, CategoryCl
         }
 
         binding.search.setOnClickListener {
-            startActivity(Intent(this, SearchScreen::class.java))
+            startActivity(Intent(activity, SearchScreen::class.java))
         }
 
-
-
-        viewModel.getNewRecipes().observe(this) {
+        viewModel.getNewRecipes().observe(viewLifecycleOwner) {
             newRecipesAdapter.updateList(it)
-        }
-
-        binding.addNew.setOnClickListener {
-            startActivity(Intent(this, AddNewRecipe::class.java))
         }
 
         askNotificationPermission()
         checkFirebaseToken()
 
         binding.notifications.setOnClickListener {
-            startActivity(Intent(this,Notifications::class.java))
+            startActivity(Intent(activity, Notifications::class.java))
         }
-    }
 
+
+        return binding.root
+    }
 
     private fun setProfilePhoto() {
         Glide.with(this)
@@ -111,18 +122,18 @@ class DashboardScreen : AppCompatActivity(), ShowCaseOnClickListener, CategoryCl
 
     private fun initRecyclerViews() {
         binding.categories.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         binding.categories.adapter = categoriesAdapter
 
         categoriesAdapter.setClickListener(this)
         showcaseAdapter.setClickListener(this)
         newRecipesAdapter.setNewRecipeClickListener(this)
         binding.showcase.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         binding.showcase.adapter = showcaseAdapter
 
         binding.newRecipes.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+            LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
         binding.newRecipes.adapter = newRecipesAdapter
 
     }
@@ -158,22 +169,15 @@ class DashboardScreen : AppCompatActivity(), ShowCaseOnClickListener, CategoryCl
     private fun initDependencyInjection() {
         component = DaggerActivityComponent.builder()
             .activityModule(ActivityModule(this))
-            .applicationComponent((application as MainApplication).applicationComponent)
+            .applicationComponent((requireActivity().application as MainApplication).getComponent())
             .build()
 
-        component.injectActivity(this)
-        initDataBinding()
-    }
-
-    private fun initDataBinding() {
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard_screen)
-        binding.setVariable(BR.viewModel, viewModel)
-        binding.executePendingBindings()
+        component.injectFragment(this)
     }
 
     override fun onShowCaseClick(mealId: String) {
 
-        val intent = (Intent(this, RecipeDetailsScreen::class.java))
+        val intent = (Intent(activity, RecipeDetailsScreen::class.java))
         intent.putExtra("id", mealId)
         startActivity(intent)
     }
@@ -183,7 +187,7 @@ class DashboardScreen : AppCompatActivity(), ShowCaseOnClickListener, CategoryCl
     }
 
     override fun newRecipeClick(mealId: String) {
-        val intent = (Intent(this, RecipeDetailsScreen::class.java))
+        val intent = (Intent(activity, RecipeDetailsScreen::class.java))
         intent.putExtra("id", mealId)
         intent.putExtra("firebase", "true")
         startActivity(intent)
@@ -202,7 +206,10 @@ class DashboardScreen : AppCompatActivity(), ShowCaseOnClickListener, CategoryCl
     private fun askNotificationPermission() {
         // This is only necessary for API level >= 33 (TIRAMISU)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
+            if (ContextCompat.checkSelfPermission(
+                    requireContext(),
+                    Manifest.permission.POST_NOTIFICATIONS
+                ) ==
                 PackageManager.PERMISSION_GRANTED
             ) {
                 // FCM SDK (and your app) can post notifications.

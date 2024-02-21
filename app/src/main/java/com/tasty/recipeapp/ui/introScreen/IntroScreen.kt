@@ -12,8 +12,8 @@ import com.tasty.recipeapp.databinding.ActivityIntroScreenBinding
 import com.tasty.recipeapp.di.components.ActivityComponent
 import com.tasty.recipeapp.di.components.DaggerActivityComponent
 import com.tasty.recipeapp.di.modules.ActivityModule
-import com.tasty.recipeapp.ui.dashboardScreen.DashboardScreen
 import com.tasty.recipeapp.ui.loginScreen.LoginScreen
+import com.tasty.recipeapp.ui.main.MainScreen
 import javax.inject.Inject
 
 class IntroScreen : AppCompatActivity() {
@@ -53,7 +53,7 @@ class IntroScreen : AppCompatActivity() {
     private fun checkIfSignedIn() {
         val user = firebaseAuth.currentUser
         if (user != null) {
-            startActivity(Intent(this, DashboardScreen::class.java))
+            startActivity(Intent(this, MainScreen::class.java))
             finish()
         }
     }
