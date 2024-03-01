@@ -1,6 +1,7 @@
 package com.tasty.recipeapp.utils
 
 import android.app.Activity
+import android.content.Context
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +35,14 @@ class CommonUtils {
             }
 
         }
+
+        fun showKeyboard(activity: Activity) {
+            (activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).toggleSoftInput(
+                InputMethodManager.SHOW_FORCED,
+                InputMethodManager.HIDE_IMPLICIT_ONLY
+            );
+        }
+
 
         fun showSuccessSnackBar(msg: String, view: View) {
             val snack = Snackbar.make(view, msg, Snackbar.LENGTH_LONG)

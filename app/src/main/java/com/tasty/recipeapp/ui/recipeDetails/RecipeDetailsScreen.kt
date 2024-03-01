@@ -1,6 +1,7 @@
 package com.tasty.recipeapp.ui.recipeDetails
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -32,6 +33,8 @@ class RecipeDetailsScreen : AppCompatActivity(), ThumbnailClickListener {
 
     private val viewModel: RecipeDetailsViewModel by viewModels { recipeDetailsViewModelFactory }
 
+    private var notification = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -44,10 +47,13 @@ class RecipeDetailsScreen : AppCompatActivity(), ThumbnailClickListener {
 
         }
 
+        binding.back.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
+
         viewModel.getImage().observe(this) {
-            Glide.with(this)
-                .load(it)
-                .placeholder(R.drawable.rounded_grey_container)
+            Glide.with(this).load(it).placeholder(R.drawable.rounded_grey_container)
                 .into(binding.thumbnail)
         }
 
@@ -63,10 +69,20 @@ class RecipeDetailsScreen : AppCompatActivity(), ThumbnailClickListener {
             showData()
         }
 
+       // onBackPressedDispatcher.addCallback(this) {
+//            if (notification) {
+//                finish()
+//                startActivity(Intent(applicationContext, DashboardScreen::class.java))
+//            }else{
+//                onBackPressedDispatcher.onBackPressed()
+//            }
+       // }
     }
 
     private fun showData() {
         val fromFirebase = intent.getStringExtra("firebase") == "true"
+        Log.d("DETAILSSSSSSS", intent.getStringExtra("id").toString())
+        notification = intent.getStringExtra("notification") != null
         if (fromFirebase) {
             viewModel.getRecipeDetailsFromFirebase(intent.getStringExtra("id").toString())
         } else {
@@ -76,10 +92,8 @@ class RecipeDetailsScreen : AppCompatActivity(), ThumbnailClickListener {
 
 
     private fun initDependencyInjection() {
-        component = DaggerActivityComponent.builder()
-            .activityModule(ActivityModule(this))
-            .applicationComponent((application as MainApplication).applicationComponent)
-            .build()
+        component = DaggerActivityComponent.builder().activityModule(ActivityModule(this))
+            .applicationComponent((application as MainApplication).applicationComponent).build()
 
         component.injectActivity(this)
         initDataBinding()

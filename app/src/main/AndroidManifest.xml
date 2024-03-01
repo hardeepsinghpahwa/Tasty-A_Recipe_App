@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.tasty.recipeapp" >
+    package="com.tasty.recipeapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -14,18 +14,15 @@
         android:name=".MainApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RecipeApp"
-        android:usesCleartextTraffic="true" >
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".ui.main.MainScreen"
-            android:exported="false" />
-        <activity
-            android:name=".ui.account.AccountScreen"
             android:exported="false" />
         <activity
             android:name=".ui.notifications.Notifications"
@@ -40,14 +37,11 @@
             android:name=".ui.searchScreen.SearchScreen"
             android:exported="false" />
         <activity
-            android:name=".ui.dashboardScreen.DashboardScreen"
-            android:exported="false" />
-        <activity
             android:name=".ui.loginScreen.LoginScreen"
             android:exported="false" />
         <activity
             android:name=".ui.introScreen.IntroScreen"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -60,7 +54,7 @@
 
         <service
             android:name=".notifications.MyFirebaseMessagingService"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

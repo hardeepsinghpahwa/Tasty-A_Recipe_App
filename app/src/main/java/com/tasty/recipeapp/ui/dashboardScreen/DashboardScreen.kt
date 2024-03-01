@@ -68,6 +68,7 @@ class DashboardScreen : Fragment(), ShowCaseOnClickListener, CategoryClickListen
         binding.setVariable(BR.viewModel, viewModel)
         binding.executePendingBindings()
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -140,7 +141,12 @@ class DashboardScreen : Fragment(), ShowCaseOnClickListener, CategoryClickListen
 
     private fun initData() {
         viewModel.getCategoriesData()
-        viewModel.getRecipeData("Vegetarian")
+        if (categoriesAdapter.getCategory() != 0) {
+            categoriesAdapter
+            viewModel.getRecipeData(categoriesAdapter.getCategoryName())
+        } else {
+            viewModel.getRecipeData("Vegetarian")
+        }
         viewModel.getNewRecipeData()
     }
 

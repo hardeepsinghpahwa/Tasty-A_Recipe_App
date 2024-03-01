@@ -86,11 +86,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 val intent1 = Intent(this, RecipeDetailsScreen::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 }
+
                 if (notificationData.firebase.isNotEmpty()) {
-                    intent1.putExtra("id", notificationData.mealId)
+                    Log.d("DETAILSSSS", notificationData.mealId)
+                    intent1.putExtra("meal_id", notificationData.mealId)
                     intent1.putExtra("firebase", notificationData.firebase)
+                    intent1.putExtra("notification", "true")
                 }
-                Log.d("DETAILSSSS", notificationData.mealId)
                 pendingIntent =
                     PendingIntent.getActivity(this, 0, intent1, PendingIntent.FLAG_IMMUTABLE)
 

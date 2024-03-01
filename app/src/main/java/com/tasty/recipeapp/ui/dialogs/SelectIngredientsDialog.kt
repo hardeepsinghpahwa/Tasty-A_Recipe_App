@@ -18,6 +18,7 @@ import com.tasty.recipeapp.databinding.DialogSelectIngredientsBinding
 import com.tasty.recipeapp.model.response.Ingredient
 import com.tasty.recipeapp.ui.addNewRecipe.adapters.IngredientAdapter
 import com.tasty.recipeapp.ui.addNewRecipe.adapters.IngredientClickListener
+import com.tasty.recipeapp.utils.CommonUtils
 import java.util.stream.Collectors
 
 
@@ -114,6 +115,7 @@ class SelectIngredientsDialog : DialogFragment(), IngredientClickListener {
 
         binding.searchLayout.setEndIconOnClickListener {
             binding.search.setText("")
+            CommonUtils.showKeyboard(requireActivity())
         }
 
         binding.close.setOnClickListener {
@@ -129,7 +131,7 @@ class SelectIngredientsDialog : DialogFragment(), IngredientClickListener {
                     if (p0.isNotEmpty()) {
                         val filteredArticleList: List<Ingredient> =
                             ingredients.stream().filter { ingredient ->
-                                ingredient.strIngredient.startsWith(p0)
+                                ingredient.strIngredient.contains(p0)
                             }.collect(Collectors.toList())
 
                         adapter.updateList(ArrayList(filteredArticleList))

@@ -73,6 +73,11 @@ class SearchScreen : AppCompatActivity(), SearchItemClickListener {
             }
         }
 
+        binding.back.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
+
+
         binding.search.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 CommonUtils.hideKeyboard(this)

@@ -40,6 +40,14 @@ class CategoriesAdapter @Inject constructor() :
         notifyDataSetChanged()
     }
 
+    fun getCategory(): Int {
+        return selectedCategory
+    }
+
+    fun getCategoryName(): String {
+        return items[selectedCategory].strCategory!!
+    }
+
     override fun getItemCount(): Int {
         return items.size
     }
@@ -83,9 +91,9 @@ class CategoriesAdapter @Inject constructor() :
 
             binding.name.setOnClickListener {
                 selectCategory(position)
-                if(position==0){
+                if (position == 0) {
                     listener.onCategoryClick("Vegetarian")
-                }else {
+                } else {
                     listener.onCategoryClick(items[position].strCategory.toString())
                 }
             }
