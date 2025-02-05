@@ -42,5 +42,5 @@ This is a recipe app which is build in kotlin using third party apis and firebas
 ***Firebase*** - Google Authentication, Storage, Firestore
 
 ## 🚀 About Me
-I'm a mobile developer learning new things and searching for freelance work oppurtunities.
+I'm a mobile developer learning new things and searching for freelance work opportunities.
 
