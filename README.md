@@ -1,5 +1,5 @@
 
-<img src="https://firebasestorage.googleapis.com/v0/b/tastyrecipeapp.appspot.com/o/12344.png?alt=media&token=88a326c5-03a1-4af2-9f64-744a5690a65d" width="300">
+<img src="https://firebasestorage.googleapis.com/v0/b/tastyrecipeapp.appspot.com/o/tasty%20icon.png?alt=media&token=9ab143af-e5d4-4e12-a68e-299ccd75289f" width="300">
 
 
 # Tasty - A Recipe App
@@ -42,5 +42,5 @@ This is a recipe app which is build in kotlin using third party apis and firebas
 ***Firebase*** - Google Authentication, Storage, Firestore
 
 ## 🚀 About Me
-I'm a mobile developer learning new things and searching for freelance work oppurtunities.
+I'm a mobile developer learning new things and searching for freelance work opportunities.
 
