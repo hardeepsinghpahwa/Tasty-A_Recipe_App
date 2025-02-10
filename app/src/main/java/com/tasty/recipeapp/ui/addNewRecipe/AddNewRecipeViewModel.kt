@@ -54,7 +54,7 @@ class AddNewRecipeViewModel(
         return failureMessage
     }
 
-    fun getIngredients(): LiveData<ArrayList<Ingredient>> {
+    fun getIngredient(): MutableLiveData<ArrayList<Ingredient>> {
         return ingredients
     }
 
@@ -63,7 +63,7 @@ class AddNewRecipeViewModel(
         val riversRef = Firebase.storage.reference.child("images/${uri!!.lastPathSegment}")
         val uploadTask = riversRef.putFile(uri!!)
 
-        val urlTask = uploadTask.continueWithTask { task ->
+        uploadTask.continueWithTask { task ->
             if (!task.isSuccessful) {
                 task.exception?.let {
                     throw it
@@ -97,9 +97,9 @@ class AddNewRecipeViewModel(
         retry.set(false)
         loading.set(true)
 
-        var id = UUID.randomUUID().toString()
+        val id = UUID.randomUUID().toString()
 
-        var obj = MealsItem()
+        val obj = MealsItem()
 
         obj.strArea = area.get().toString()
         obj.idMeal = id
@@ -149,7 +149,7 @@ class AddNewRecipeViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableObserver<IngredientResponse>() {
                     override fun onNext(t: IngredientResponse) {
-                        if (!t.meals.isNullOrEmpty()) {
+                        if (t.meals.isNotEmpty()) {
                             ingredients.postValue(t.meals)
                         } else {
                             retry.set(true)

@@ -98,7 +98,7 @@ class AddNewRecipe : AppCompatActivity(), SelectIngredientsDialog.GetSelectedIng
                 .show(supportFragmentManager, "SelectIngredientsDialog")
         }
 
-        viewModel.getIngredients().observe(this) {
+        viewModel.getIngredient().observe(this) {
             ingredients.clear()
             ingredients.addAll(it)
         }

@@ -23,11 +23,8 @@ class CommonUtils {
             //Find the currently focused view, so we can grab the correct window token from it.
             if (imm.isAcceptingText) {
                 if (activity.currentFocus != null) {
-                    var view: View = activity.currentFocus!!
+                    val view: View = activity.currentFocus!!
                     //If no view currently has focus, create a new one, just so we can grab a window token from it
-                    if (view == null) {
-                        view = View(activity)
-                    }
 
                     imm.hideSoftInputFromWindow(view.windowToken, 0)
                 }
@@ -46,8 +43,8 @@ class CommonUtils {
 
         fun showSuccessSnackBar(msg: String, view: View) {
             val snack = Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
-            val text =
-                snack.view.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
+            val text: TextView =
+                snack.view.findViewById(com.google.android.material.R.id.snackbar_text)
             text.setTextColor(ContextCompat.getColor(view.context, R.color.white))
             val view = snack.view
             val params = view.layoutParams as FrameLayout.LayoutParams
@@ -60,8 +57,8 @@ class CommonUtils {
 
         fun showFailureSnackBar(msg: String, view: View) {
             val snack = Snackbar.make(view, msg, Snackbar.LENGTH_LONG)
-            val text =
-                snack.view.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
+            val text: TextView =
+                snack.view.findViewById(com.google.android.material.R.id.snackbar_text)
             text.setTextColor(ContextCompat.getColor(view.context, R.color.white))
             val view = snack.view
             val params = view.layoutParams as FrameLayout.LayoutParams

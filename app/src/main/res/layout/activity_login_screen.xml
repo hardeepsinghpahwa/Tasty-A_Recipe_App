@@ -5,6 +5,11 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.tasty.recipeapp.ui.loginScreen.LoginViewModel" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -188,5 +193,22 @@
                 android:textStyle="bold" />
 
         </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#85000000"
+            android:elevation="10dp"
+            android:visibility="@{viewModel.loading.booleanValue() ?View.VISIBLE:View.GONE}">
+
+            <ProgressBar
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerInParent="true"
+                android:indeterminateDrawable="@drawable/progress_bar"
+                android:visibility="@{viewModel.loading.booleanValue() ?View.VISIBLE:View.GONE}" />
+
+        </RelativeLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

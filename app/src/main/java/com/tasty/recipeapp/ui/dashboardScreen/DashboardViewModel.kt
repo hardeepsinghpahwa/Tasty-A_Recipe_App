@@ -25,8 +25,8 @@ class DashboardViewModel(
 
     private val categories: MutableLiveData<ArrayList<Categories>> =
         MutableLiveData<ArrayList<Categories>>()
-    private val recipes: MutableLiveData<ArrayList<MealData>> =
-        MutableLiveData<ArrayList<MealData>>()
+    private val recipes: MutableLiveData<ArrayList<MealData>?> =
+        MutableLiveData<ArrayList<MealData>?>()
 
     private val newRecipes: MutableLiveData<ArrayList<MealsItem>> =
         MutableLiveData<ArrayList<MealsItem>>()
@@ -42,7 +42,7 @@ class DashboardViewModel(
         return newRecipes
     }
 
-    fun getRecipes(): LiveData<ArrayList<MealData>> {
+    fun getRecipes(): MutableLiveData<ArrayList<MealData>?> {
         return recipes
     }
 
@@ -55,7 +55,7 @@ class DashboardViewModel(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableObserver<CategoriesResponse>() {
                     override fun onNext(t: CategoriesResponse) {
-                        if (!t.categories.isNullOrEmpty()) {
+                        if (t.categories.isNotEmpty()) {
                             categories.postValue(t.categories)
                         } else {
                             retry.set(true)
@@ -110,9 +110,7 @@ class DashboardViewModel(
 
     override fun onCleared() {
         super.onCleared()
-        if (compositeDisposable != null) {
-            compositeDisposable.clear()
-        }
+        compositeDisposable.clear()
     }
 
     fun getNewRecipeData() {

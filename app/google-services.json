@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "606144302985-35tf6asp53c4h4o7pqdirk5kd1q53ils.apps.googleusercontent.com",
+          "client_id": "606144302985-1phmg48uqo6ak55sfi9dqkvbpfo5dkoo.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.tasty.recipeapp",
-            "certificate_hash": "33218a8e07b87337531b3621d954ff66338fb0a3"
+            "certificate_hash": "a1d197480eec1114c9a73ae93c236879e951cf1c"
           }
         }
       ],

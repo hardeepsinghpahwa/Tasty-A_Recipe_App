@@ -83,7 +83,9 @@ class DashboardScreen : Fragment(), ShowCaseOnClickListener, CategoryClickListen
         setProfilePhoto()
 
         viewModel.getRecipes().observe(viewLifecycleOwner) {
-            showcaseAdapter.updateList(it)
+            if (it != null) {
+                showcaseAdapter.updateList(it)
+            }
         }
 
         viewModel.getCategories().observe(viewLifecycleOwner) {

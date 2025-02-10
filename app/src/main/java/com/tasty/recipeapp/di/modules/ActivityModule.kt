@@ -2,6 +2,7 @@ package com.tasty.recipeapp.di.modules
 
 import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
+import androidx.credentials.CredentialManager
 import androidx.fragment.app.Fragment
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
@@ -46,4 +47,9 @@ class ActivityModule {
         return CompositeDisposable()
     }
 
+    @Provides
+    @ActivityScope
+    fun providesCredentialsManager(activity: Activity): CredentialManager {
+        return CredentialManager.create(activity)
+    }
 }
