@@ -1,6 +1,7 @@
 package com.tasty.recipeapp.ui.loginScreen
 
 import android.content.Context
+import android.util.Log
 import androidx.credentials.CredentialManager
 import androidx.credentials.GetCredentialRequest
 import androidx.credentials.exceptions.GetCredentialException
@@ -154,8 +155,16 @@ class LoginViewModel @Inject constructor(
                         }
                 }
             } catch (e: GetCredentialException) {
+                e.message?.let {
+                    Log.d("Error", it)
+                    if(it=="activity is cancelled by the user."){
+                        failureMessage.postValue("Sign in cancelled.")
+                    }else{
+                        failureMessage.postValue("Google Sign In Error. Please try again.")
+                    }
+                }
                 loading.set(false)
-                failureMessage.postValue("Google Sign-In Failure")
+
             }
         }
     }
